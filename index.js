@@ -48,8 +48,6 @@ app.post('/users', (req, res) => {
 
 })
 
-
-
 app.use(defaultEndpoint)
 
 const PORT = process.env.PORT
