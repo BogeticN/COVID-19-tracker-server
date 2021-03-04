@@ -32,15 +32,20 @@ app.get('/users', (_, res) => {
 app.post('/users', (req, res) => {
 
     const user = new User({
-        username:req.body.username,
-        email:req.body.email,
-        password:req.body.password
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
     })
-    user.save().then(result => {
-        console.log(result)
-        res.json(result)
-        mongoose.connection.close
+    User.find({}).then(result => {
+        if (!result.find(e => e.username == user.username)) {
+            user.save().then(result => {
+                res.json(result)
+                mongoose.connection.close
+            })
+        }
+        else return
     })
+
 })
 
 
